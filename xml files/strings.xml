@@ -1,4 +1,4 @@
-<!--layout-->
+<!--values-->
 <resources>
     <string name="app_name">MotorcycleSync</string>
 </resources>

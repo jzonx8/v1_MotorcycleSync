@@ -3,4 +3,11 @@
     <string name="startup">GET STARTED</string>
     <string name="searchBar">Search for Motorcycles</string>
     <string name="teamName">APP-ENDPRO</string>
+    <string name="login">login</string>
+    <string name="email">email</string>
+    <string name="password">Password</string>
+    <string name="Login">Login</string>
+    <string name="sign_in">Sign in</string>
+    <string name="Register">Register</string>
+    <string name="register">Register</string>
 </resources>

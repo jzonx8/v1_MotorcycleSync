@@ -55,15 +55,37 @@
                 android:hint="@string/searchBar"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-
                 android:padding="8dp" />
 
-        <GridView
-            android:id="@+id/gridview"
-            android:numColumns="2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <!-- Login Option -->
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
+            <Button
+                android:id="@+id/hotPicksButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hot Picks"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+            <Button
+                android:id="@+id/registrationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registration"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginButton" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

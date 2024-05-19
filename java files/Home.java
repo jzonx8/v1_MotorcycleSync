@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.finalproject.Database.Login;
+import com.example.finalproject.Database.Registration;
+import com.example.finalproject.fragments.HotPicksFragment;
+
 public class Home extends AppCompatActivity {
 
     Button loginButton;

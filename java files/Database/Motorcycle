@@ -13,8 +13,6 @@ public class Motorcycle {
     private String year;
     @PropertyName("Category")
     private String category;
-    @PropertyName("Price")
-    private String price;
     @PropertyName("Rating")
     private String rating;
     @PropertyName("Displacement (ccm)")
@@ -77,7 +75,7 @@ public class Motorcycle {
     public String getModel() { return model; }
     public String getYear() { return year; }
     public String getCategory() { return category; }
-    public String getPrice() { return price; }
+
     public String getRating() { return rating; }
     public String getDisplacement() { return displacement; }
     public String getPower() { return power; }

@@ -34,7 +34,8 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
         holder.brandTextView.setText(motorcycle.getBrand());
         holder.modelTextView.setText(motorcycle.getModel());
         holder.yearTextView.setText(motorcycle.getYear());
-        holder.priceTextView.setText(motorcycle.getPrice());
+        holder.priceTextView.setText(motorcycle.getMinPrice());
+        holder.priceTextView.setText(motorcycle.getMaxPrice());
         holder.ratingTextView.setText(motorcycle.getRating());
     }
 
@@ -48,7 +49,8 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
         TextView brandTextView;
         TextView modelTextView;
         TextView yearTextView;
-        TextView priceTextView;
+        TextView maxPriceTextView;
+        TextView minPriceTextView;
         TextView ratingTextView;
 
         public MotorcycleViewHolder(@NonNull View itemView) {
@@ -56,7 +58,8 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
             brandTextView = itemView.findViewById(R.id.brandTextView);
             modelTextView = itemView.findViewById(R.id.modelTextView);
             yearTextView = itemView.findViewById(R.id.yearTextView);
-            priceTextView = itemView.findViewById(R.id.priceTextView);
+            minPriceTextView = itemView.findViewById(R.id.minPriceTextView);
+            maxPriceTextView = itemView.findViewById(R.id.maxPriceTextView);
             ratingTextView = itemView.findViewById(R.id.ratingTextView);
         }
     }

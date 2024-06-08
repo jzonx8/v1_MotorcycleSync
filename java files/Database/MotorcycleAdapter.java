@@ -34,8 +34,8 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
         holder.brandTextView.setText(motorcycle.getBrand());
         holder.modelTextView.setText(motorcycle.getModel());
         holder.yearTextView.setText(motorcycle.getYear());
-        holder.priceTextView.setText(motorcycle.getMinPrice());
-        holder.priceTextView.setText(motorcycle.getMaxPrice());
+        holder.minPriceTextView.setText(motorcycle.getMinPrice());
+        holder.maxPriceTextView.setText(motorcycle.getMaxPrice());
         holder.ratingTextView.setText(motorcycle.getRating());
     }
 

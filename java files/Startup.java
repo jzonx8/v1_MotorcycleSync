@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.os.Handler;
 
 public class Startup extends AppCompatActivity {
@@ -19,12 +18,12 @@ public class Startup extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             // Create an Intent to start the Home Activity
-            Intent intent = new Intent(Startup.this, Home.class);
+            Intent intent = new Intent(Startup.this, MainActivity.class);
             startActivity(intent);
 
             // Finish the current activity
             finish();
-        }, 1000); // Delay time in milliseconds (2000 milliseconds = 2 seconds)
+        }, 2000); // Delay time in milliseconds (2000 milliseconds = 2 seconds)
 
     }
 

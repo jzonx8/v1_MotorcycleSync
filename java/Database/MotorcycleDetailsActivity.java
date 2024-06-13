@@ -1,5 +1,6 @@
 package com.example.finalproject.Database;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import com.example.finalproject.R;
 
 public class MotorcycleDetailsActivity extends AppCompatActivity {
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,37 +47,37 @@ public class MotorcycleDetailsActivity extends AppCompatActivity {
         String rearSuspension = getIntent().getStringExtra("rearSuspension");
         String colorOptions = getIntent().getStringExtra("colorOptions");
 
-        // Set data to TextViews
-        ((TextView) findViewById(R.id.idTextView)).setText(id);
+        // Set data to TextViews with prefixed labels
+        ((TextView) findViewById(R.id.idTextView)).setText("ID: " + id);
         ((TextView) findViewById(R.id.brandTextView)).setText(brand);
         ((TextView) findViewById(R.id.modelTextView)).setText(model);
-        ((TextView) findViewById(R.id.yearTextView)).setText(year);
-        ((TextView) findViewById(R.id.categoryTextView)).setText(category);
-        ((TextView) findViewById(R.id.minPriceTextView)).setText(minPrice);
-        ((TextView) findViewById(R.id.maxPriceTextView)).setText(maxPrice);
-        ((TextView) findViewById(R.id.ratingTextView)).setText(rating);
-        ((TextView) findViewById(R.id.displacementTextView)).setText(displacement);
-        ((TextView) findViewById(R.id.powerTextView)).setText(power);
-        ((TextView) findViewById(R.id.torqueTextView)).setText(torque);
-        ((TextView) findViewById(R.id.engineCylinderTextView)).setText(engineCylinder);
-        ((TextView) findViewById(R.id.engineStrokeTextView)).setText(engineStroke);
-        ((TextView) findViewById(R.id.gearboxTextView)).setText(gearbox);
-        ((TextView) findViewById(R.id.boreTextView)).setText(bore);
-        ((TextView) findViewById(R.id.strokeTextView)).setText(stroke);
-        ((TextView) findViewById(R.id.fuelCapacityTextView)).setText(fuelCapacity);
-        ((TextView) findViewById(R.id.fuelSystemTextView)).setText(fuelSystem);
-        ((TextView) findViewById(R.id.fuelControlTextView)).setText(fuelControl);
-        ((TextView) findViewById(R.id.coolingSystemTextView)).setText(coolingSystem);
-        ((TextView) findViewById(R.id.transmissionTypeTextView)).setText(transmissionType);
-        ((TextView) findViewById(R.id.dryWeightTextView)).setText(dryWeight);
-        ((TextView) findViewById(R.id.wheelbaseTextView)).setText(wheelbase);
-        ((TextView) findViewById(R.id.seatHeightTextView)).setText(seatHeight);
-        ((TextView) findViewById(R.id.frontBrakesTextView)).setText(frontBrakes);
-        ((TextView) findViewById(R.id.rearBrakesTextView)).setText(rearBrakes);
-        ((TextView) findViewById(R.id.frontTireTextView)).setText(frontTire);
-        ((TextView) findViewById(R.id.rearTireTextView)).setText(rearTire);
-        ((TextView) findViewById(R.id.frontSuspensionTextView)).setText(frontSuspension);
-        ((TextView) findViewById(R.id.rearSuspensionTextView)).setText(rearSuspension);
-        ((TextView) findViewById(R.id.colorOptionsTextView)).setText(colorOptions);
+        ((TextView) findViewById(R.id.yearTextView)).setText("Year: " + year);
+        ((TextView) findViewById(R.id.categoryTextView)).setText("Category: " + category);
+        ((TextView) findViewById(R.id.minPriceTextView)).setText("Price: Php" + minPrice);
+        ((TextView) findViewById(R.id.maxPriceTextView)).setText("- Php" + maxPrice);
+        ((TextView) findViewById(R.id.ratingTextView)).setText("Rating: " + rating);
+        ((TextView) findViewById(R.id.displacementTextView)).setText("Displacement: " + displacement);
+        ((TextView) findViewById(R.id.powerTextView)).setText("Power: " + power);
+        ((TextView) findViewById(R.id.torqueTextView)).setText("Torque: " + torque);
+        ((TextView) findViewById(R.id.engineCylinderTextView)).setText("Engine Cylinder: " + engineCylinder);
+        ((TextView) findViewById(R.id.engineStrokeTextView)).setText("Engine Stroke: " + engineStroke);
+        ((TextView) findViewById(R.id.gearboxTextView)).setText("Gearbox: " + gearbox);
+        ((TextView) findViewById(R.id.boreTextView)).setText("Bore: " + bore);
+        ((TextView) findViewById(R.id.strokeTextView)).setText("Stroke: " + stroke);
+        ((TextView) findViewById(R.id.fuelCapacityTextView)).setText("Fuel Capacity: " + fuelCapacity);
+        ((TextView) findViewById(R.id.fuelSystemTextView)).setText("Fuel System: " + fuelSystem);
+        ((TextView) findViewById(R.id.fuelControlTextView)).setText("Fuel Control: " + fuelControl);
+        ((TextView) findViewById(R.id.coolingSystemTextView)).setText("Cooling System: " + coolingSystem);
+        ((TextView) findViewById(R.id.transmissionTypeTextView)).setText("Transmission Type: " + transmissionType);
+        ((TextView) findViewById(R.id.dryWeightTextView)).setText("Dry Weight: " + dryWeight);
+        ((TextView) findViewById(R.id.wheelbaseTextView)).setText("Wheelbase: " + wheelbase);
+        ((TextView) findViewById(R.id.seatHeightTextView)).setText("Seat Height: " + seatHeight);
+        ((TextView) findViewById(R.id.frontBrakesTextView)).setText("Front Brakes: " + frontBrakes);
+        ((TextView) findViewById(R.id.rearBrakesTextView)).setText("Rear Brakes: " + rearBrakes);
+        ((TextView) findViewById(R.id.frontTireTextView)).setText("Front Tire: " + frontTire);
+        ((TextView) findViewById(R.id.rearTireTextView)).setText("Rear Tire: " + rearTire);
+        ((TextView) findViewById(R.id.frontSuspensionTextView)).setText("Front Suspension: " + frontSuspension);
+        ((TextView) findViewById(R.id.rearSuspensionTextView)).setText("Rear Suspension: " + rearSuspension);
+        ((TextView) findViewById(R.id.colorOptionsTextView)).setText("Color Options: " + colorOptions);
     }
 }

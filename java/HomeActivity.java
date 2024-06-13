@@ -1,6 +1,5 @@
 package com.example.finalproject;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,12 +11,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalproject.Database.Motorcycle;
+import com.example.finalproject.Database.MotorcycleAdapter;
 import com.example.finalproject.Database.Search;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
+    private RecyclerView recyclerViewMotorcycles;
+    private MotorcycleAdapter motorcycleAdapter;
+    private List<Motorcycle> motorcycleInput;
+    private static final int MAX_RESULTS = 10; // Maximum results to fetch
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +49,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Initialize buttons
+        // Initialize RecyclerView
+        recyclerViewMotorcycles = findViewById(R.id.recyclerViewMotorcycles);
+        recyclerViewMotorcycles.setLayoutManager(new LinearLayoutManager(this));
+
+        motorcycleInput = new ArrayList<>();
+        motorcycleAdapter = new MotorcycleAdapter(motorcycleInput);
+        recyclerViewMotorcycles.setAdapter(motorcycleAdapter);
+
+        // Initialize buttons (optional)
         Button hotPicksButton = findViewById(R.id.hotPicksButton);
         Button latestPicksButton = findViewById(R.id.latestPicksButton);
         Button brandsButton = findViewById(R.id.brandsButton);
-        Button searchButton = findViewById(R.id.motorcycleSearchBar);  // Added search button
+        Button searchButton = findViewById(R.id.motorcycleSearchBar);
 
-        // Set click listener for hot picks button
+        // Set click listeners (optional)
         hotPicksButton.setOnClickListener(v -> {
             // Navigate to HotPicksFragment activity
             Intent intent = new Intent(HomeActivity.this, HotPicksFragment.class);
@@ -57,40 +80,53 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(HomeActivity.this, BrandsFragment.class));
         });
 
-        // Set click listener for search button
         searchButton.setOnClickListener(v -> {
-            // Navigate to Search activity
             Intent intent = new Intent(HomeActivity.this, Search.class);
             startActivity(intent);
         });
+
+        // Fetch data from Firebase
+        fetchDataFromFirebase();
     }
 
-    @SuppressLint("NonConstantResourceId")
+    private void fetchDataFromFirebase() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("1U-N4kiJDOPQnKIZ2WNm_VIVNArKB4ti_J8qtmTmKjgY/motorcycles");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                motorcycleInput.clear();
+                int count = 0; // Initialize counter
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (count >= MAX_RESULTS) {
+                        break; // Stop fetching more entries if reached the limit
+                    }
+
+                    Motorcycle motorcycle = snapshot.getValue(Motorcycle.class);
+                    if (motorcycle != null) {
+                        motorcycleInput.add(motorcycle);
+                        count++; // Increment counter
+                    }
+                }
+                motorcycleAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                startActivity(new Intent(this, HomeActivity.class));
-                break;
-            case R.id.loginButton:
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
-            case R.id.nav_settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            case R.id.nav_bookmark:
-                startActivity(new Intent(this, BookmarkActivity.class));
-                break;
-            case R.id.nav_review:
-                startActivity(new Intent(this, MotorcycleFeedback.class));
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
+        // Handle navigation item selection
         return true;
     }
 
     @Override
     public void onBackPressed() {
+        // Handle back press
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {

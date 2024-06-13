@@ -1,5 +1,6 @@
 package com.example.finalproject.Database;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finalproject.Database.MotorcycleDetailsActivity;
 import com.example.finalproject.R;
 
 import java.util.List;
@@ -31,15 +31,16 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
         return new MotorcycleViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MotorcycleViewHolder holder, int position) {
         Motorcycle motorcycle = motorcycleList.get(position);
         holder.brandTextView.setText(motorcycle.getBrand());
         holder.modelTextView.setText(motorcycle.getModel());
-        holder.yearTextView.setText(String.valueOf(motorcycle.getYear()));
-        holder.minPriceTextView.setText(String.valueOf(motorcycle.getMinPrice()));
-        holder.maxPriceTextView.setText(String.valueOf(motorcycle.getMaxPrice()));
-        holder.ratingTextView.setText(String.valueOf(motorcycle.getRating()));
+        holder.yearTextView.setText("Year: " + motorcycle.getYear());
+        holder.minPriceTextView.setText("Price: Php" + motorcycle.getMinPrice());
+        holder.maxPriceTextView.setText("- Php" + motorcycle.getMaxPrice());
+        holder.ratingTextView.setText("Rating: " + motorcycle.getRating());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, MotorcycleDetailsActivity.class);

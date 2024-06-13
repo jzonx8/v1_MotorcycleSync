@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,7 +32,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerViewMotorcycles;
     private MotorcycleAdapter motorcycleAdapter;
     private List<Motorcycle> motorcycleInput;
-    private static final int MAX_RESULTS = 10; // Maximum results to fetch
+    private List<Motorcycle> completeMotorcycleList; // List to store all motorcycles
+    private Button loadMoreButton;
+    private static final int MAX_RESULTS = 10; // Maximum results to fetch at a time
+    private int currentLoadedItems = 0; // Track the current number of loaded items
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         recyclerViewMotorcycles.setLayoutManager(new LinearLayoutManager(this));
 
         motorcycleInput = new ArrayList<>();
+        completeMotorcycleList = new ArrayList<>();
         motorcycleAdapter = new MotorcycleAdapter(motorcycleInput);
         recyclerViewMotorcycles.setAdapter(motorcycleAdapter);
 
@@ -62,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Button latestPicksButton = findViewById(R.id.latestPicksButton);
         Button brandsButton = findViewById(R.id.brandsButton);
         Button searchButton = findViewById(R.id.motorcycleSearchBar);
+        loadMoreButton = findViewById(R.id.loadMoreButton);
 
         // Set click listeners (optional)
         hotPicksButton.setOnClickListener(v -> {
@@ -85,6 +90,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         });
 
+        // Load more button click listener
+        loadMoreButton.setOnClickListener(v -> loadMoreItems());
+
         // Fetch data from Firebase
         fetchDataFromFirebase();
     }
@@ -94,21 +102,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                motorcycleInput.clear();
-                int count = 0; // Initialize counter
+                completeMotorcycleList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (count >= MAX_RESULTS) {
-                        break; // Stop fetching more entries if reached the limit
-                    }
-
                     Motorcycle motorcycle = snapshot.getValue(Motorcycle.class);
                     if (motorcycle != null) {
-                        motorcycleInput.add(motorcycle);
-                        count++; // Increment counter
+                        completeMotorcycleList.add(motorcycle);
                     }
                 }
-                motorcycleAdapter.notifyDataSetChanged();
+
+                // Shuffle the list to randomize the order
+                Collections.shuffle(completeMotorcycleList);
+
+                // Load the first set of items
+                loadMoreItems();
             }
 
             @Override
@@ -116,6 +123,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 // Handle error
             }
         });
+    }
+
+    private void loadMoreItems() {
+        int nextLimit = Math.min(currentLoadedItems + MAX_RESULTS, completeMotorcycleList.size());
+        for (int i = currentLoadedItems; i < nextLimit; i++) {
+            motorcycleInput.add(completeMotorcycleList.get(i));
+        }
+        currentLoadedItems = nextLimit;
+
+        motorcycleAdapter.notifyDataSetChanged();
+
+        // Hide the Load More button if all items are loaded
+        if (currentLoadedItems >= completeMotorcycleList.size()) {
+            loadMoreButton.setVisibility(Button.GONE);
+        }
     }
 
     @Override

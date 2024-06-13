@@ -1,136 +1,81 @@
-package com.example.finalproject;
+package com.example.finalproject.Database;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Button;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.TextView;
 
-import com.example.finalproject.Database.Motorcycle;
-import com.example.finalproject.Database.MotorcycleAdapter;
-import com.example.finalproject.Database.Search;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.finalproject.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private DrawerLayout drawerLayout;
-    private RecyclerView recyclerViewMotorcycles;
-    private MotorcycleAdapter motorcycleAdapter;
-    private List<Motorcycle> motorcycleInput;
-    private static final int MAX_RESULTS = 10; // Maximum results to fetch
-
+public class MotorcycleDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_main);
+        setContentView(R.layout.activity_motorcycle_details);
 
-        // Initialize toolbar and navigation drawer
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        // Retrieve data from intent
+        String id = getIntent().getStringExtra("id");
+        String brand = getIntent().getStringExtra("brand");
+        String model = getIntent().getStringExtra("model");
+        String year = getIntent().getStringExtra("year");
+        String category = getIntent().getStringExtra("category");
+        String minPrice = getIntent().getStringExtra("minPrice");
+        String maxPrice = getIntent().getStringExtra("maxPrice");
+        String rating = getIntent().getStringExtra("rating");
+        String displacement = getIntent().getStringExtra("displacement");
+        String power = getIntent().getStringExtra("power");
+        String torque = getIntent().getStringExtra("torque");
+        String engineCylinder = getIntent().getStringExtra("engineCylinder");
+        String engineStroke = getIntent().getStringExtra("engineStroke");
+        String gearbox = getIntent().getStringExtra("gearbox");
+        String bore = getIntent().getStringExtra("bore");
+        String stroke = getIntent().getStringExtra("stroke");
+        String fuelCapacity = getIntent().getStringExtra("fuelCapacity");
+        String fuelSystem = getIntent().getStringExtra("fuelSystem");
+        String fuelControl = getIntent().getStringExtra("fuelControl");
+        String coolingSystem = getIntent().getStringExtra("coolingSystem");
+        String transmissionType = getIntent().getStringExtra("transmissionType");
+        String dryWeight = getIntent().getStringExtra("dryWeight");
+        String wheelbase = getIntent().getStringExtra("wheelbase");
+        String seatHeight = getIntent().getStringExtra("seatHeight");
+        String frontBrakes = getIntent().getStringExtra("frontBrakes");
+        String rearBrakes = getIntent().getStringExtra("rearBrakes");
+        String frontTire = getIntent().getStringExtra("frontTire");
+        String rearTire = getIntent().getStringExtra("rearTire");
+        String frontSuspension = getIntent().getStringExtra("frontSuspension");
+        String rearSuspension = getIntent().getStringExtra("rearSuspension");
+        String colorOptions = getIntent().getStringExtra("colorOptions");
 
-        // Initialize RecyclerView
-        recyclerViewMotorcycles = findViewById(R.id.recyclerViewMotorcycles);
-        recyclerViewMotorcycles.setLayoutManager(new LinearLayoutManager(this));
-
-        motorcycleInput = new ArrayList<>();
-        motorcycleAdapter = new MotorcycleAdapter(motorcycleInput);
-        recyclerViewMotorcycles.setAdapter(motorcycleAdapter);
-
-        // Initialize buttons (optional)
-        Button hotPicksButton = findViewById(R.id.hotPicksButton);
-        Button latestPicksButton = findViewById(R.id.latestPicksButton);
-        Button brandsButton = findViewById(R.id.brandsButton);
-        Button searchButton = findViewById(R.id.motorcycleSearchBar);
-
-        // Set click listeners (optional)
-        hotPicksButton.setOnClickListener(v -> {
-            // Navigate to HotPicksFragment activity
-            Intent intent = new Intent(HomeActivity.this, HotPicksFragment.class);
-            startActivity(intent);
-        });
-
-        latestPicksButton.setOnClickListener(v -> {
-            // Navigate to HotPicksFragment activity
-            Intent intent = new Intent(HomeActivity.this, LatestFragment.class);
-            startActivity(intent);
-        });
-
-        brandsButton.setOnClickListener(v -> {
-            startActivity(new Intent(HomeActivity.this, BrandsFragment.class));
-        });
-
-        searchButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, Search.class);
-            startActivity(intent);
-        });
-
-        // Fetch data from Firebase
-        fetchDataFromFirebase();
-    }
-
-    private void fetchDataFromFirebase() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("1U-N4kiJDOPQnKIZ2WNm_VIVNArKB4ti_J8qtmTmKjgY/motorcycles");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                motorcycleInput.clear();
-                int count = 0; // Initialize counter
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (count >= MAX_RESULTS) {
-                        break; // Stop fetching more entries if reached the limit
-                    }
-
-                    Motorcycle motorcycle = snapshot.getValue(Motorcycle.class);
-                    if (motorcycle != null) {
-                        motorcycleInput.add(motorcycle);
-                        count++; // Increment counter
-                    }
-                }
-                motorcycleAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
-            }
-        });
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation item selection
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        // Handle back press
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        // Set data to TextViews
+        ((TextView) findViewById(R.id.idTextView)).setText(id);
+        ((TextView) findViewById(R.id.brandTextView)).setText(brand);
+        ((TextView) findViewById(R.id.modelTextView)).setText(model);
+        ((TextView) findViewById(R.id.yearTextView)).setText(year);
+        ((TextView) findViewById(R.id.categoryTextView)).setText(category);
+        ((TextView) findViewById(R.id.minPriceTextView)).setText(minPrice);
+        ((TextView) findViewById(R.id.maxPriceTextView)).setText(maxPrice);
+        ((TextView) findViewById(R.id.ratingTextView)).setText(rating);
+        ((TextView) findViewById(R.id.displacementTextView)).setText(displacement);
+        ((TextView) findViewById(R.id.powerTextView)).setText(power);
+        ((TextView) findViewById(R.id.torqueTextView)).setText(torque);
+        ((TextView) findViewById(R.id.engineCylinderTextView)).setText(engineCylinder);
+        ((TextView) findViewById(R.id.engineStrokeTextView)).setText(engineStroke);
+        ((TextView) findViewById(R.id.gearboxTextView)).setText(gearbox);
+        ((TextView) findViewById(R.id.boreTextView)).setText(bore);
+        ((TextView) findViewById(R.id.strokeTextView)).setText(stroke);
+        ((TextView) findViewById(R.id.fuelCapacityTextView)).setText(fuelCapacity);
+        ((TextView) findViewById(R.id.fuelSystemTextView)).setText(fuelSystem);
+        ((TextView) findViewById(R.id.fuelControlTextView)).setText(fuelControl);
+        ((TextView) findViewById(R.id.coolingSystemTextView)).setText(coolingSystem);
+        ((TextView) findViewById(R.id.transmissionTypeTextView)).setText(transmissionType);
+        ((TextView) findViewById(R.id.dryWeightTextView)).setText(dryWeight);
+        ((TextView) findViewById(R.id.wheelbaseTextView)).setText(wheelbase);
+        ((TextView) findViewById(R.id.seatHeightTextView)).setText(seatHeight);
+        ((TextView) findViewById(R.id.frontBrakesTextView)).setText(frontBrakes);
+        ((TextView) findViewById(R.id.rearBrakesTextView)).setText(rearBrakes);
+        ((TextView) findViewById(R.id.frontTireTextView)).setText(frontTire);
+        ((TextView) findViewById(R.id.rearTireTextView)).setText(rearTire);
+        ((TextView) findViewById(R.id.frontSuspensionTextView)).setText(frontSuspension);
+        ((TextView) findViewById(R.id.rearSuspensionTextView)).setText(rearSuspension);
+        ((TextView) findViewById(R.id.colorOptionsTextView)).setText(colorOptions);
     }
 }

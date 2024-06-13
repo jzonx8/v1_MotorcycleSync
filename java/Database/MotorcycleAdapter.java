@@ -1,5 +1,7 @@
 package com.example.finalproject.Database;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalproject.Database.MotorcycleDetailsActivity;
 import com.example.finalproject.R;
 
-import java.text.BreakIterator;
 import java.util.List;
 
 public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.MotorcycleViewHolder> {
-
-    private final List<Motorcycle> motorcycleList;
+    private List<Motorcycle> motorcycleList;
+    private Context context;
 
     public MotorcycleAdapter(List<Motorcycle> motorcycleList) {
         this.motorcycleList = motorcycleList;
@@ -24,7 +26,8 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
     @NonNull
     @Override
     public MotorcycleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_motorcycle, parent, false);
+        context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.item_motorcycle, parent, false);
         return new MotorcycleViewHolder(view);
     }
 
@@ -33,10 +36,46 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
         Motorcycle motorcycle = motorcycleList.get(position);
         holder.brandTextView.setText(motorcycle.getBrand());
         holder.modelTextView.setText(motorcycle.getModel());
-        holder.yearTextView.setText(motorcycle.getYear());
-        holder.minPriceTextView.setText(motorcycle.getMinPrice());
-        holder.maxPriceTextView.setText(motorcycle.getMaxPrice());
-        holder.ratingTextView.setText(motorcycle.getRating());
+        holder.yearTextView.setText(String.valueOf(motorcycle.getYear()));
+        holder.minPriceTextView.setText(String.valueOf(motorcycle.getMinPrice()));
+        holder.maxPriceTextView.setText(String.valueOf(motorcycle.getMaxPrice()));
+        holder.ratingTextView.setText(String.valueOf(motorcycle.getRating()));
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, MotorcycleDetailsActivity.class);
+            intent.putExtra("id", motorcycle.getId());
+            intent.putExtra("brand", motorcycle.getBrand());
+            intent.putExtra("model", motorcycle.getModel());
+            intent.putExtra("year", String.valueOf(motorcycle.getYear()));
+            intent.putExtra("category", motorcycle.getCategory());
+            intent.putExtra("minPrice", String.valueOf(motorcycle.getMinPrice()));
+            intent.putExtra("maxPrice", String.valueOf(motorcycle.getMaxPrice()));
+            intent.putExtra("rating", String.valueOf(motorcycle.getRating()));
+            intent.putExtra("displacement", String.valueOf(motorcycle.getDisplacement()));
+            intent.putExtra("power", String.valueOf(motorcycle.getPower()));
+            intent.putExtra("torque", String.valueOf(motorcycle.getTorque()));
+            intent.putExtra("engineCylinder", String.valueOf(motorcycle.getEngineCylinder()));
+            intent.putExtra("engineStroke", String.valueOf(motorcycle.getEngineStroke()));
+            intent.putExtra("gearbox", String.valueOf(motorcycle.getGearbox()));
+            intent.putExtra("bore", String.valueOf(motorcycle.getBore()));
+            intent.putExtra("stroke", String.valueOf(motorcycle.getStroke()));
+            intent.putExtra("fuelCapacity", String.valueOf(motorcycle.getFuelCapacity()));
+            intent.putExtra("fuelSystem", motorcycle.getFuelSystem());
+            intent.putExtra("fuelControl", motorcycle.getFuelControl());
+            intent.putExtra("coolingSystem", motorcycle.getCoolingSystem());
+            intent.putExtra("transmissionType", motorcycle.getTransmissionType());
+            intent.putExtra("dryWeight", String.valueOf(motorcycle.getDryWeight()));
+            intent.putExtra("wheelbase", String.valueOf(motorcycle.getWheelbase()));
+            intent.putExtra("seatHeight", String.valueOf(motorcycle.getSeatHeight()));
+            intent.putExtra("frontBrakes", motorcycle.getFrontBrakes());
+            intent.putExtra("rearBrakes", motorcycle.getRearBrakes());
+            intent.putExtra("frontTire", motorcycle.getFrontTire());
+            intent.putExtra("rearTire", motorcycle.getRearTire());
+            intent.putExtra("frontSuspension", motorcycle.getFrontSuspension());
+            intent.putExtra("rearSuspension", motorcycle.getRearSuspension());
+            intent.putExtra("colorOptions", motorcycle.getColorOptions());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -45,15 +84,14 @@ public class MotorcycleAdapter extends RecyclerView.Adapter<MotorcycleAdapter.Mo
     }
 
     static class MotorcycleViewHolder extends RecyclerView.ViewHolder {
-
         TextView brandTextView;
         TextView modelTextView;
         TextView yearTextView;
-        TextView maxPriceTextView;
         TextView minPriceTextView;
+        TextView maxPriceTextView;
         TextView ratingTextView;
 
-        public MotorcycleViewHolder(@NonNull View itemView) {
+        MotorcycleViewHolder(@NonNull View itemView) {
             super(itemView);
             brandTextView = itemView.findViewById(R.id.brandTextView);
             modelTextView = itemView.findViewById(R.id.modelTextView);

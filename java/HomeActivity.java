@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -140,12 +141,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation item selection
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                startActivity(new Intent(this, HomeActivity.class));
+                break;
+            case R.id.loginButton:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingActivity.class));
+                break;
+            case R.id.nav_bookmark:
+                startActivity(new Intent(this, BookmarkActivity.class));
+                break;
+            case R.id.nav_review:
+                startActivity(new Intent(this, MotorcycleFeedback.class));
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
     @Override
     public void onBackPressed() {
         // Handle back press

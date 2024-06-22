@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Search extends AppCompatActivity {
     private AutoCompleteTextView autoCompleteBrand;
-    private EditText textYear, textMinPrice, textMaxPrice, textDisplacement;
+    private EditText textYear, textMinPrice, textMaxPrice, textGearbox;
     private Spinner spinnerCategory;
     private MotorcycleAdapter motorcycleAdapter;
     private List<Motorcycle> motorcycleInput;
@@ -40,7 +40,7 @@ public class Search extends AppCompatActivity {
         textMinPrice = findViewById(R.id.minPriceTextView);
         textMaxPrice = findViewById(R.id.maxPriceTextView);
         spinnerCategory = findViewById(R.id.spinnerCategory);
-        textDisplacement = findViewById(R.id.textDisplacement); // Initialize editTextDisplacement
+        textGearbox = findViewById(R.id.textGearbox); // Initialize editTextGearbox
 
         ArrayAdapter<CharSequence> brandAdapter = ArrayAdapter.createFromResource(this,
                 R.array.brand_array, android.R.layout.simple_dropdown_item_1line);
@@ -80,7 +80,7 @@ public class Search extends AppCompatActivity {
         String inputMinPrice = textMinPrice.getText().toString().trim();
         String inputMaxPrice = textMaxPrice.getText().toString().trim();
         String inputCategory = spinnerCategory.getSelectedItem().toString().trim();
-        String inputDisplacement = textDisplacement.getText().toString().trim(); // Retrieve displacement input
+        String inputGearbox = textGearbox.getText().toString().trim(); // Retrieve gearbox input
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -92,7 +92,7 @@ public class Search extends AppCompatActivity {
                     if (count >= batchSize) break;
 
                     Motorcycle motorcycle = snapshot.getValue(Motorcycle.class);
-                    if ((motorcycle != null) && matchesCriteria(motorcycle, inputBrand, inputYear, inputMinPrice, inputMaxPrice, inputCategory, inputDisplacement)) {
+                    if ((motorcycle != null) && matchesCriteria(motorcycle, inputBrand, inputYear, inputMinPrice, inputMaxPrice, inputCategory, inputGearbox)) {
                         motorcycleInput.add(motorcycle);
                         count++;
                     }
@@ -119,7 +119,7 @@ public class Search extends AppCompatActivity {
         String inputMinPrice = textMinPrice.getText().toString().trim();
         String inputMaxPrice = textMaxPrice.getText().toString().trim();
         String inputCategory = spinnerCategory.getSelectedItem().toString().trim();
-        String inputDisplacement = textDisplacement.getText().toString().trim(); // Retrieve displacement input
+        String inputGearbox = textGearbox.getText().toString().trim(); // Retrieve gearbox input
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -130,7 +130,7 @@ public class Search extends AppCompatActivity {
                     if (count >= batchSize) break;
 
                     Motorcycle motorcycle = snapshot.getValue(Motorcycle.class);
-                    if ((motorcycle != null) && matchesCriteria(motorcycle, inputBrand, inputYear, inputMinPrice, inputMaxPrice, inputCategory, inputDisplacement)) {
+                    if ((motorcycle != null) && matchesCriteria(motorcycle, inputBrand, inputYear, inputMinPrice, inputMaxPrice, inputCategory, inputGearbox)) {
                         motorcycleInput.add(motorcycle);
                         count++;
                     }
@@ -151,7 +151,7 @@ public class Search extends AppCompatActivity {
         });
     }
 
-    private boolean matchesCriteria(Motorcycle motorcycle, String brand, String year, String minPrice, String maxPrice, String category, String displacement) {
+    private boolean matchesCriteria(Motorcycle motorcycle, String brand, String year, String minPrice, String maxPrice, String category, String gearbox) {
         boolean matches = true;
 
         if (!brand.isEmpty()) {
@@ -184,24 +184,14 @@ public class Search extends AppCompatActivity {
             matches = motorcycle.getCategory() != null && motorcycle.getCategory().toLowerCase().contains(category.toLowerCase());
         }
 
-        if (matches && !displacement.isEmpty()) {
-            try {
-                int displacementValue = Integer.parseInt(displacement);
-                int motorcycleDisplacement = Integer.parseInt(motorcycle.getDisplacement());
-
-                // Define your tolerance or range here (e.g., 100 cc)
-                int tolerance = 100;
-
-                matches = Math.abs(motorcycleDisplacement - displacementValue) <= tolerance;
-            } catch (NumberFormatException e) {
-                matches = false;
-            }
+        if (matches && !gearbox.isEmpty() && !gearbox.equalsIgnoreCase("gearbox")) { // Assuming "gearbox" is the default hint
+            matches = motorcycle.getGearbox() != null && motorcycle.getGearbox().equalsIgnoreCase(gearbox);
         }
 
         return matches;
     }
 
-    private boolean closeMatchCriteria(Motorcycle motorcycle, String brand, String year, String minPrice, String maxPrice, String category, String displacement) {
+    private boolean closeMatchCriteria(Motorcycle motorcycle, String brand, String year, String minPrice, String maxPrice, String category, String gearbox) {
         boolean matches = true;
 
         if (!brand.isEmpty()) {
@@ -234,19 +224,20 @@ public class Search extends AppCompatActivity {
             matches = motorcycle.getCategory() != null && motorcycle.getCategory().toLowerCase().contains(category.toLowerCase());
         }
 
-        if (matches && !displacement.isEmpty()) {
-            try {
-                int displacementValue = Integer.parseInt(displacement);
-                int motorcycleDisplacement = Integer.parseInt(motorcycle.getDisplacement());
-
-                // Define your tolerance or range here (e.g., 100 cc)
-                int tolerance = 100;
-
-                matches = Math.abs(motorcycleDisplacement - displacementValue) <= tolerance;
-            } catch (NumberFormatException e) {
+        if (matches && !gearbox.isEmpty() && !gearbox.equalsIgnoreCase("gearbox")) { // Assuming "gearbox" is the default hint
+            String motorcycleGearbox = motorcycle.getGearbox();
+            if (motorcycleGearbox != null) {
+                // Check if the motorcycle's gearbox contains the selected option
+                if (motorcycleGearbox.toLowerCase().contains(gearbox.toLowerCase())) {
+                    matches = true;
+                } else {
+                    matches = false;
+                }
+            } else {
                 matches = false;
             }
         }
+
 
         return matches;
     }
@@ -257,7 +248,7 @@ public class Search extends AppCompatActivity {
         String inputMinPrice = textMinPrice.getText().toString().trim();
         String inputMaxPrice = textMaxPrice.getText().toString().trim();
         String inputCategory = spinnerCategory.getSelectedItem().toString().trim();
-        String inputDisplacement = textDisplacement.getText().toString().trim();
+        String inputGearbox = textGearbox.getText().toString().trim();
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -268,7 +259,7 @@ public class Search extends AppCompatActivity {
                     if (count >= batchSize) break;
 
                     Motorcycle motorcycle = snapshot.getValue(Motorcycle.class);
-                    if (motorcycle != null && closeMatchCriteria(motorcycle, inputBrand, inputYear, inputMinPrice, inputMaxPrice, inputCategory, inputDisplacement)) {
+                    if (motorcycle != null && closeMatchCriteria(motorcycle, inputBrand, inputYear, inputMinPrice, inputMaxPrice, inputCategory, inputGearbox)) {
                         motorcycleInput.add(motorcycle);
                         count++;
                     }
@@ -278,9 +269,9 @@ public class Search extends AppCompatActivity {
                 motorcycleAdapter.notifyDataSetChanged();
 
                 if (!motorcycleInput.isEmpty()) {
-                    Toast.makeText(Search.this, "Based on your input, there are no exact matches. Here are other motorcycles recommended for you.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Search.this, "Based on your input, there are no exact matches.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(Search.this, "No motorcycles found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Search.this, "Please input adjust the details", Toast.LENGTH_LONG).show();
                 }
             }
 

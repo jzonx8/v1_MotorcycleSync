@@ -26,7 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
         android:hint="Category" />
 
     <AutoCompleteTextView
@@ -57,13 +56,14 @@
         android:hint="Year"
         android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:id="@+id/textDisplacement"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textGearbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="16dp"
-        android:hint="Displacement(ccm)" />
+        android:hint="Gearbox"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/buttonSearch"

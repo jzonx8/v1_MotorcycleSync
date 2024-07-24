@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/star"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_addmotorcycle"
+            android:icon="@drawable/bookmark"
+            android:title="Add Motorcycle" />
+
+        <item
+            android:id="@+id/nav_review"
+            android:icon="@drawable/review"
+            android:title="Motorcycle Feedbacks" />
+
+        <item
+            android:id="@+id/nav_feedbackoutput"
+            android:icon="@drawable/review"
+            android:title="Feedbacks" />
+
+        <item
+            android:id="@+id/nav_migrate"
+            android:icon="@drawable/review"
+            android:title="Migrate" />
+
+    </group>
+</menu>

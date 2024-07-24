@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:src="@drawable/noavailableimage"
+                    android:contentDescription="Image 1"
+                    android:layout_marginEnd="8dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/darker_gray" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:src="@drawable/noavailableimage"
+                    android:contentDescription="Image 2"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/brandTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Brand"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/modelTextView"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Model"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/yearTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Year"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/categoryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Category"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/minPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="MinPrice"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/maxPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="MaxPrice"
+                android:layout_marginEnd="8dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Rating"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Information:"
+            android:fontFamily="@font/gupter_bold"
+            android:textColor="@color/white"
+            android:background="@color/black"/>
+
+        <TextView
+            android:id="@+id/displacementTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Displacement (ccm)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/powerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Power (hp)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/torqueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Torque (Nm)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/engineCylinderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Engine cylinder"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/engineStrokeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Engine stroke"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/gearboxTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Gearbox"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/boreTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Bore (mm)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/strokeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Stroke (mm)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/fuelCapacityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Fuel capacity (lts)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/fuelSystemTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Fuel system"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/fuelControlTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Fuel control"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/coolingSystemTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Cooling system"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/transmissionTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Transmission type"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/dryWeightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Dry weight (kg)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/wheelbaseTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Wheelbase (mm)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/seatHeightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Seat height (mm)"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/frontBrakesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Front brakes"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/rearBrakesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Rear brakes"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/frontTireTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Front tire"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/rearTireTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Rear tire"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/frontSuspensionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Front suspension"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/rearSuspensionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Rear suspension"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/colorOptionsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Color options"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+</ScrollView>

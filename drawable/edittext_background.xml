@@ -1,0 +1,5 @@
+<!-- res/drawable/button_oval_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#0038A8" /> <!-- Background color -->
+    <corners android:radius="28dp" /> <!-- Adjust the radius to make it an oval -->
+</shape>
